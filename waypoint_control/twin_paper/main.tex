@@ -195,15 +195,58 @@ At the same time, deploy one V2X communication device at the central server to r
 The latency in this system primarily stems from three sources: processing latency at the data collection end, data transmission latency, and processing latency at the central server.
 Processing latency at the data collection end primarily stems from the preprocessing of raw data. We mark the moment just before the data enters preprocessing as the start time and the moment preprocessing ends as the end time, then calculate the difference between the two as the processing latency.
 To calculate data transmission latency, we use the V2X transmission time at the data collection end as the start time and the V2X reception time at the central server as the end time, and calculate the difference between the two as the transmission latency.
+Since the central server must receive data from all intersections before it can perform trajectory tracking, the longest transmission delay is therefore the total transmission delay.
 Processing latency on the central server primarily stems from the execution time of the relevant programs, namely the generation and re-creation of trajectories.
 We use the time when the data is input as the start time and the time when the target is successfully replicated in the virtual world as the end time, and calculate the difference between the two as the processing delay.
 Total delay refers to the time elapsed from when the target appears in front of the sensor until it is successfully detected.
+
+
+\begin{table}[htbp]
+  \centering
+  \caption{System latency.}
+  \label{tab:algorithm_performance}
+
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}ccccc}
+    \toprule
+    Scene & Data Preprocessing & Data Transmission & Trajectory Tracking and Replay & Total \\
+    \midrule
+      Town01  & 2 & 1 & 1 &                    \\
+      Town10  & 400 & 533 & 600 & 1533                   \\
+    \bottomrule
+  \end{tabular*}
+\end{table}
 
 
 \subsection{Generation of twin trajectories}
 % 介绍我们系统是如何生成孪生轨迹的，轨迹的生成方法
 % 分单路口轨迹与多路口轨迹，未知区域轨迹预测
 % 说明用到的公式，模型，以及其在孪生系统中的作用，突出系统的创新性
+
+\begin{table}[htbp]
+  \centering
+  \footnotesize
+  \setlength{\tabcolsep}{3pt}
+  \caption{System latedncy.}
+  \label{tab:algorithmsd}
+
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}cccccccccccc}
+    \toprule
+    \textbf{Scene} & \textbf{Cat.} & \textbf{Rcll} & \textbf{Prcn} & \textbf{FTR} & \textbf{FP} & \textbf{FN} & \textbf{IDS} & \textbf{MT} & \textbf{ML} & \textbf{MOTA} & \textbf{MOTP} \\
+    \midrule
+    \multirow{2}{*}{Town01} & person & 77.55 & 97.95 & 0.07 & 35.8 & 411.8 & 14.8 & 72.95 & 16.19 & 75.05 & 92.47 \\
+                            % & person & 77.5512 & 97.9486 & 0.0716 & 35.8 & 411.8 & 14.8 & 72.9524 & 16.1905 & 75.0471 & 92.4724 \\
+                            & vehicle & 83.48 & 84.89 & 0.54 & 267.6 & 332.2 & 10.8 & 81.31 & 13.69 & 68.30 & 87.75 \\
+    \midrule
+    \multirow{2}{*}{Town10} & person & 80.50 & 76.27 & 2.71 & 1353.6 & 1011 & 70.6 & 61.31 & 10.58 & 53.14 & 91.12 \\
+                            & vehicle & 88.17 & 71.19 & 2.30 & 1153.6 & 320 & 22.2 & 83 & 11.43 & 45.47 & 85.64 \\
+    \bottomrule
+  \end{tabular*}
+\end{table}
+
+To demonstrate the effectiveness of this system, we conducted validation tests across four different scenarios.
+Town01 and Town10 are virtual maps included with CARLA.
+hutb and zhongdian were imported into CARLA as real-world maps via the road network.
+
 
 
 \subsection{Twins in different scenarios}

@@ -7,7 +7,7 @@ t_start = data.t_end;
 % 获取程序开始时间
 sys_time_before = posixtime(datetime('now'));
 
-townName = 'Town01';   % 可以修改城镇和路口
+townName = 'Town10';   % 可以修改城镇和路口
 % dataSets = {'Town10HD_Opt/test_data_junc1', 'Town10HD_Opt/test_data_junc2', 'Town10HD_Opt/test_data_junc3', 'Town10HD_Opt/test_data_junc4', 'Town10HD_Opt/test_data_junc5'};
 % 定义各城镇对应的数据集
 if strcmp(townName, 'Town10')
@@ -62,11 +62,11 @@ end
 %% 轨迹匹配，链接全部路口的轨迹
 % 车辆轨迹匹配
 vehiclematchThreshold = 0.65;  % 车辆匹配阈值
-vehicletraj = linkIdentities(vehiclejuncTrajCell, vehiclematchThreshold);
+vehicletraj = linkIdentities(vehiclejuncTrajCell, vehiclematchThreshold, townName);
 
 % 行人轨迹匹配
-personmatchThreshold = 0.65;  % 车辆匹配阈值
-persontraj = linkIdentities(personjuncTrajCell, personmatchThreshold);
+personmatchThreshold = 0.45;  % 行人匹配阈值
+persontraj = linkIdentities(personjuncTrajCell, personmatchThreshold, townName);
 
 % % 获取程序结束时间
 % sys_time_after = posixtime(datetime('now'));

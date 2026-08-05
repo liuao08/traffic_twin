@@ -1,4 +1,4 @@
-function traj = linkIdentities(juncTrajCell, matchThreshold)  % 1x5 cell
+function traj = linkIdentities(juncTrajCell, matchThreshold, townName)  % 1x5 cell
     % Town10场景中有5个路口，已经拿到每个路口的车辆轨迹，还包括其外观特征以及轨迹时间
     % 现需将5个路口的轨迹根据时间串联起来，形成完整的车辆轨迹
     threshold = matchThreshold;
@@ -36,14 +36,31 @@ function traj = linkIdentities(juncTrajCell, matchThreshold)  % 1x5 cell
     % 路口 1 可以去往：2, 3, 4, 5
     % 路口 2 可以去往：4, 5
     % 路口 3 可以去往：4, 5
-    roadPairs = [1, 2;
-                 1, 3;
-                 1, 4;
-                 1, 5;
-                 2, 4;
-                 2, 5;
-                 3, 4;
-                 3, 5];
+    if strcmp(townName, 'Town10')
+        roadPairs = [1, 2;
+                     1, 3;
+                     1, 4;
+                     1, 5;
+                     2, 4;
+                     2, 5;
+                     3, 4;
+                     3, 5];
+    elseif strcmp(townName, 'Town01')
+        roadPairs = [1, 4;
+                     1, 5;
+                     2, 3;
+                     2, 4;
+                     2, 5;
+                     3, 5];
+    end
+    % roadPairs = [1, 2;
+    %              1, 3;
+    %              1, 4;
+    %              1, 5;
+    %              2, 4;
+    %              2, 5;
+    %              3, 4;
+    %              3, 5];
 
     % 按照拓扑转移顺序，顺次使用 matchpairs 进行路口间的全局最优匹配
     for p = 1:size(roadPairs, 1)
